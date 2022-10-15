@@ -1,5 +1,14 @@
+local Config = {
+    WindowName = "Paradise Hub v1",
+	Color = Color3.fromRGB(124,7,7),
+	Keybind = Enum.KeyCode.RightBracket
+}
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/zqnbZpX7"))()
+if game:GetService("CoreGui"):FindFirstChild(Config.WindowName) ~= nil then
+    game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()
+end
+local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 local notifications = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/notif"))()
-local Laz = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 local Replicated = game:GetService("ReplicatedStorage")
 local player = game:GetService("Players").LocalPlayer
 local HumanoidRootPart = player.Character.HumanoidRootPart
@@ -9,27 +18,25 @@ local plr = nil
 local FadeScreen = require(Replicated.GTycoonClient.Modules.FadeScreen)
 local SharedUtility = require(Replicated.Modules.SharedUtility)
 
+local Main = Window:CreateTab("Main Menu")
+local Slime = Window:CreateTab("Slime Menu")
+local Traveling = Window:CreateTab("Travel Menu")
+local Shop = Window:CreateTab("Shop Menu")
+local Ads = Window:CreateTab("Misc Menu")
+local Settings = Window:CreateTab("UI Settings")
 
--- Menus
-local Main = Laz:NewWindow("Main Menu")
-local Slime = Laz:NewWindow("Slime Menu")
-local Traveling = Laz:NewWindow("Travel Menu")
-local Shop = Laz:NewWindow("Shop Menu")
-local Ads = Laz:NewWindow("Misc Menu")
+local Grabbing = Main:CreateSection("Orb Options")
+local Slimes = Shop:CreateSection("Purchase Options")
+local Rate = Shop:CreateSection("Rate Options")
+local Travel = Traveling:CreateSection("Areas")
+local TP = Traveling:CreateSection("Players")
+local Merging = Slime:CreateSection("Merge Options")
+local Bullshit = Ads:CreateSection("Ad Options")
+local MoreBullshit = Ads:CreateSection("Purchase Options")
 
--- Options
-local Grabbing = Main:NewSection("Orb Options")
-local Rate = Shop:NewSection("Rate Options")
-local Slimes = Slime:NewSection("Purchase Options")
-local Travel = Traveling:NewSection("Travel Options")
-local TP = Traveling:NewSection("Teleporting Options")
-local Merging = Slime:NewSection("Merge Options")
-local Bullshit = Ads:NewSection("Ad Options")
-local MoreBullshit = Ads:NewSection("Purchase Options")
-
---Functions
-
-
+local MenuSection = Settings:CreateSection("Menu")
+local BackgroundSection = Settings:CreateSection("Background")
+-------------
 function notify(a,b)
     notifications:message {
         Title = "Paradise Hub | <font color='rgb(0, 255, 255)'>"..a.."</font>",
@@ -44,8 +51,6 @@ function Activate(acv)
     firetouchinterest(HumanoidRootPart,plr.Buttons[acv].Button,1)
 end
 
-
-
 function Grab()
     notify("Drops", "Grabbing Drops")
     for _, x in pairs(game:GetService("Workspace").Drops:GetChildren()) do
@@ -53,36 +58,35 @@ function Grab()
         x.CFrame = HumanoidRootPart.CFrame
         task.wait(0.001)
     end
-    notify("Drops", "Grabbed ".. nes .. " Drops")
+    notify("Drops", "Grabbed ".. orbs .. " Drops")
     orbs = 0    
 end
-
-
-Grabbing:CreateButton("Grab all Drops",function()
+-------------
+local grabbutton = Grabbing:CreateButton("Grab Orbs",function()
     Grab()
 end)
-
-Grabbing:CreateButton("Deposit all Drops",function()
+------------
+local depositbutton = Grabbing:CreateButton("Deposit Orbs",function()
     notify("Drops", "Depositing Drops")
     Activate("DepositButton")
 end)
-
-Merging:CreateButton("Merge Slime(s)",function()
+------------
+local mergebutton = Merging:CreateButton("Merge Slime(s)",function()
     Activate("MergeButton")
     notify("Slimes", "Merged Slime(s)")
 end)
-
-Slimes:CreateTextbox("Slime Amount",function(t)
-    currentamount = t
+------------
+local slimebox = Slimes:CreateTextBox("Slime Amount", "Slime Amount",false,function(f)
+    currentamount = f
     notify("Slimes", currentamount.." Slime(s) Selected!")
 end)
-
-Slimes:CreateButton("Purchase Slime(s)",function()
+------------
+local buybutton = Slimes:CreateButton("Purchase Slime(s)",function()
     game:GetService("ReplicatedStorage").GTycoonClient.Remotes.BuyDropper:FireServer(tonumber(currentamount))
     notify("Slimes", "Purchasing "..currentamount.. " Slime(s)!")
 end)
-
-Bullshit:CreateButton("Remove Ads",function()
+------------
+local removeads = Bullshit:CreateButton("Remove Ads",function()
     game:GetService("Workspace").ADS:Destroy()
     game:GetService("Workspace").BloxbizAdBoxUnit:Destroy()
     game:GetService("ReplicatedStorage").BloxbizRemotes:Destroy()
@@ -90,8 +94,8 @@ Bullshit:CreateButton("Remove Ads",function()
     game:GetService("ReplicatedStorage").BloxbizSDK:Destroy()
     notify("Ads", "Removed Bullshit Ads!")
 end)
-
-MoreBullshit:CreateButton("Remove R$ Items",function()
+------------
+local removerobuxpurchases = MoreBullshit:CreateButton("Remove R$ Items",function()
     plr = SharedUtility.GetPlayerTycoon(game.Players.LocalPlayer)
     for _, x in pairs(plr.Static.Part.SurfaceGui:GetChildren()) do
         if x.Text == ":)" then
@@ -111,33 +115,94 @@ MoreBullshit:CreateButton("Remove R$ Items",function()
     plr.Buttons.AutoDeposit:Destroy()
     notify("Ads", "Removed R$ Items!")
 end)
-
-Travel:CreateButton("My Plot",function()
+------------
+local myplot = Travel:CreateButton("My Plot",function()
     plr = SharedUtility.GetPlayerTycoon(game.Players.LocalPlayer)
-    FadeScreen.Fade(Color3.fromRGB(70, 70, 70), 1, 1, true)
+    FadeScreen.Fade(Color3.fromRGB(70, 70, 70), 0.5, 0.5, true)
     player.Character:SetPrimaryPartCFrame(plr.Static.PlotTeleport.CFrame)
 end)
 
-Travel:CreateButton("Wizard Obby",function()
+local Wizard = Travel:CreateButton("Wizard Obby",function()
     Activate("ObbyPortal")
 end)
 
-Travel:CreateButton("Dungeon Realms",function()
+local Realms = Travel:CreateButton("Dungeon Realms",function()
     Activate("DungeonPortal")
 end)
 
-Travel:CreateButton("Hall of Fame",function()
+local HoF = Travel:CreateButton("Hall of Fame",function()
     Activate("HallOfFamePortal")
 end)
-
-Rate:CreateButton("Increase Rate",function()
+------------
+local increaserate = Rate:CreateButton("Increase Rate",function()
     Activate("BuySpeed")
 end)
-
+------------
 for _, x in pairs(game:GetService("Players"):GetChildren()) do
     if x ~= player then
-        TP:CreateButton("Teleport to "..x.Name,function()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = x.Character.HumanoidRootPart.CFrame 
+        local teleport = TP:CreateButton("Teleport to "..x.Name,function()
+            HumanoidRootPart.CFrame = x.Character.HumanoidRootPart.CFrame 
         end)
     end
 end
+------------
+local Toggle3 = MenuSection:CreateToggle("UI Toggle", nil, function(State)
+	Window:Toggle(State)
+end)
+Toggle3:CreateKeybind(tostring(Config.Keybind):gsub("Enum.KeyCode.", ""), function(Key)
+	Config.Keybind = Enum.KeyCode[Key]
+end)
+Toggle3:SetState(true)
+
+local CloseUI = MenuSection:CreateButton("Destroy UI",function()
+    for _, x in pairs(game:GetService("CoreGui"):GetChildren()) do
+        if x.Name == "ScreenGui" then
+            x:Destroy()
+        end
+    end
+    game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()
+end)
+
+local Colorpicker3 = MenuSection:CreateColorpicker("UI Color", function(Color)
+	Window:ChangeColor(Color)
+end)
+Colorpicker3:UpdateColor(Config.Color)
+
+-- credits to jan for patterns
+local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
+	if Name == "Default" then
+		Window:SetBackground("2151741365")
+	elseif Name == "Hearts" then
+		Window:SetBackground("6073763717")
+	elseif Name == "Abstract" then
+		Window:SetBackground("6073743871")
+	elseif Name == "Hexagon" then
+		Window:SetBackground("6073628839")
+	elseif Name == "Circles" then
+		Window:SetBackground("6071579801")
+	elseif Name == "Lace With Flowers" then
+		Window:SetBackground("6071575925")
+	elseif Name == "Floral" then
+		Window:SetBackground("5553946656")
+	end
+end)
+Dropdown3:SetOption("Default")
+
+local Colorpicker4 = BackgroundSection:CreateColorpicker("Color", function(Color)
+	Window:SetBackgroundColor(Color)
+end)
+Colorpicker4:UpdateColor(Color3.new(1,1,1))
+
+local Slider3 = BackgroundSection:CreateSlider("Transparency",0,1,nil,false, function(Value)
+	Window:SetBackgroundTransparency(Value)
+end)
+Slider3:SetValue(0)
+
+local Slider4 = BackgroundSection:CreateSlider("Tile Scale",0,1,nil,false, function(Value)
+	Window:SetTileScale(Value)
+end)
+Slider4:SetValue(0.5)
+
+Window:SetBackground("6071575925")
+Window:SetBackgroundColor(Color3.fromRGB(124,7,7))
+
