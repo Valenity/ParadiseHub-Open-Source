@@ -12,7 +12,7 @@ end
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 local player = game:GetService("Players").LocalPlayer
 local HumanoidRootPart = player.Character.HumanoidRootPart
-
+local nes = 0
 local Main = Window:CreateTab("Main Menu")
 local Teleport = Window:CreateTab("Teleport Menu")
 local Tab2 = Window:CreateTab("UI Settings")
