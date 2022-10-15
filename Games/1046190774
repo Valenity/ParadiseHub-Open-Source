@@ -3,7 +3,7 @@ local Config = {
 	Color = Color3.fromRGB(124,7,7),
 	Keybind = Enum.KeyCode.RightBracket
 }
-local Library = loadstring(game:HttpGet("https://pastebin.com/raw/zqnbZpX7"))()
+local Library = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-BracketV3-Edited-6518"))()
 if game:GetService("CoreGui"):FindFirstChild(Config.WindowName) ~= nil then
     game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()
 end
