@@ -34,9 +34,25 @@ local TP = Traveling:CreateSection("Players")
 local Merging = Slime:CreateSection("Merge Options")
 local Bullshit = Ads:CreateSection("Ad Options")
 local MoreBullshit = Ads:CreateSection("Purchase Options")
+local CompleteObby = Ads:CreateSection("Obby Manipulation")
 
 local MenuSection = Settings:CreateSection("Menu")
 local BackgroundSection = Settings:CreateSection("Background")
+-------------
+for _, x in pairs(game:GetService("Players").robjetbot.PlayerGui.Chat.Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller:GetChildren()) do
+    if x:IsA("Frame") then
+        x:Destroy()    
+    end
+end
+game.StarterGui:SetCore("ChatMakeSystemMessage", {
+	Text = "Paradise Hub on Top! Join the Discord:", 
+	Color = Color3.fromRGB(255,200,100)
+})
+wait(1)
+game.StarterGui:SetCore("ChatMakeSystemMessage", {
+	Text = "https://valenity.world/discord", 
+	Color = Color3.fromRGB(255,255,255)
+})
 -------------
 function notify(a,b)
     notifications:message {
@@ -45,18 +61,18 @@ function notify(a,b)
     }
 end
 -------------
-function GrabLoop()
-    player.Character.HARVESTER.WeldConstraint:Destroy()
-    for _, x in pairs(game:GetService("Workspace").Drops:GetChildren()) do
-        player.Character.HARVESTER.CFrame = x.CFrame
-        player.Character.HARVESTER.Size = Vector3.new(0.5,0.5,0.5)
+function SkipObby(int)
+    for _, x in pairs(game:GetService("Workspace").ObbyCheckpoints:GetChildren()) do
+    if x:IsA("Part") then
+        firetouchinterest(HumanoidRootPart,x,0)
+        task.wait(0.01)
+        firetouchinterest(HumanoidRootPart,x,1)
     end
-    player.Character.HARVESTER.CFrame = HumanoidRootPart.CFrame
-    local weld = Instance.new("WeldConstraint")
-    weld.Part0 = HumanoidRootPart
-    weld.Part1 = player.Character.HARVESTER
-    weld.Parent = player.Character.HARVESTER
-    player.Character.HARVESTER.Size = Vector3.new(8,8,8)
+end
+local bruh = "ObbyButton"..int
+firetouchinterest(HumanoidRootPart,game:GetService("Workspace")[bruh].Button,0)
+task.wait(0.01)
+firetouchinterest(HumanoidRootPart,game:GetService("Workspace")[bruh].Button,1)
 end
 -------------
 function Activate(acv)
@@ -115,6 +131,7 @@ local removeads = Bullshit:CreateButton("Remove Ads",function()
     game:GetService("ReplicatedStorage").BloxbizRemotes:Destroy()
     game:GetService("ReplicatedStorage").Bloxbiz3DAdAssets:Destroy()
     game:GetService("ReplicatedStorage").BloxbizSDK:Destroy()
+    player.PlayerScripts.BloxbizSDK:Destroy()
     notify("Ads", "Removed Bullshit Ads!")
 end)
 ------------
@@ -137,6 +154,18 @@ local removerobuxpurchases = MoreBullshit:CreateButton("Remove R$ Items",functio
     plr.Buttons.AutoCollect:Destroy()
     plr.Buttons.AutoDeposit:Destroy()
     notify("Ads", "Removed R$ Items!")
+end)
+------------
+local ObbyManipulation = CompleteObby:CreateButton("Complete Floor 1",function()
+    SkipObby("")
+end)
+------------
+local ObbyManipulation2 = CompleteObby:CreateButton("Complete Floor 2",function()
+    SkipObby(2)
+end)
+------------
+local ObbyManipulation3 = CompleteObby:CreateButton("Complete Floor 3",function()
+    SkipObby(3)
 end)
 ------------
 local myplot = Travel:CreateButton("My Plot",function()
