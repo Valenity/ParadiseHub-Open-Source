@@ -46,6 +46,6 @@ while true do
     end
     
     if getgenv().h == true then
-        game:GetService("ReplicatedStorage").RemoteEvents["Friend_RemoteEvent"]:FireServer(1000000 * 5)
+        game:GetService("ReplicatedStorage").RemoteEvents["Friend_RemoteEvent"]:FireServer(100000000 * 10)
     end
 end
