@@ -60,6 +60,10 @@ Toggle3:CreateKeybind(tostring(Config.Keybind):gsub("Enum.KeyCode.", ""), functi
 end)
 Toggle3:SetState(true)
 
+local CloseUI = MenuSection:CreateButton("Destroy UI",function()
+    game:GetService("CoreGui"):FindFirstChild("ParadiseHubv1"):Destroy()    
+end)
+
 local Colorpicker3 = MenuSection:CreateColorpicker("UI Color", function(Color)
 	Window:ChangeColor(Color)
 end)
