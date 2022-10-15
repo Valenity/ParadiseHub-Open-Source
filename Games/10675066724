@@ -57,7 +57,7 @@ function Grab()
     for _, x in pairs(game:GetService("Workspace").Drops:GetChildren()) do
         orbs = orbs + 1
         x.CFrame = HumanoidRootPart.CFrame
-        task.wait(0.001)
+        task.wait(0.004)
     end
     notify("Drops", "Grabbed ".. orbs .. " Drops")
     orbs = 0    
