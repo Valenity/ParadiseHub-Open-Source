@@ -1,4 +1,3 @@
---
 local Config = {
     WindowName = "Paradise Hub v1",
 	Color = Color3.fromRGB(124,7,7),
@@ -13,6 +12,7 @@ local notifications = loadstring(game:HttpGet("https://raw.githubusercontent.com
 local Replicated = game:GetService("ReplicatedStorage")
 local player = game:GetService("Players").LocalPlayer
 local HumanoidRootPart = player.Character.HumanoidRootPart
+
 local orbs = 0
 local currentamount = 0
 local plr = nil
@@ -54,10 +54,19 @@ end
 
 function Grab()
     notify("Drops", "Grabbing Drops")
+    player.Character.HARVESTER.WeldConstraint:Destroy()
     for _, x in pairs(game:GetService("Workspace").Drops:GetChildren()) do
         orbs = orbs + 1
-        x.CFrame = HumanoidRootPart.CFrame
+        player.Character.HARVESTER.CFrame = x.CFrame
+        player.Character.HARVESTER.Size = Vector3.new(0.5,0.5,0.5)
+        task.wait(0.001)
     end
+    player.Character.HARVESTER.CFrame = HumanoidRootPart.CFrame
+    local weld = Instance.new("WeldConstraint")
+    weld.Part0 = HumanoidRootPart
+    weld.Part1 = player.Character.HARVESTER
+    weld.Parent = player.Character.HARVESTER
+    player.Character.HARVESTER.Size = Vector3.new(8,8,8)
     notify("Drops", "Grabbed ".. orbs .. " Drops")
     orbs = 0    
 end
