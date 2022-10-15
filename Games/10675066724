@@ -59,7 +59,6 @@ function Grab()
         orbs = orbs + 1
         player.Character.HARVESTER.CFrame = x.CFrame
         player.Character.HARVESTER.Size = Vector3.new(2,2,2)
-        task.wait(0.001)
     end
     player.Character.HARVESTER.CFrame = HumanoidRootPart.CFrame
     local weld = Instance.new("WeldConstraint")
