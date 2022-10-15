@@ -77,5 +77,5 @@
 #### Of course not! I always find ways to give back and compensate where it's due. We don't believe in taking money from other's as that promotes the worst evil in all of internet marketplaces, scamming.
 
 > Do you plan on actually pursuing this as a main project?
-#### With all of my other projects either being cancelled due to boredom or lack of funding, Paradise Hub will remain on the list 
+#### With all of my other projects either being cancelled due to boredom or lack of funding, Paradise Hub will remain on the list until funding is gone (more than likely will happen) or Paradise Hub is merged with another hub (more than likely will not happen)
 
