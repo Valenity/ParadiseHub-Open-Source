@@ -141,6 +141,7 @@ end)
 for _, x in pairs(game:GetService("Players"):GetChildren()) do
     if x ~= player then
         local teleport = TP:CreateButton("Teleport to "..x.Name,function()
+            FadeScreen.Fade(Color3.fromRGB(70, 70, 70), 0.5, 0.5, true)
             HumanoidRootPart.CFrame = x.Character.HumanoidRootPart.CFrame 
         end)
     end
@@ -205,4 +206,3 @@ Slider4:SetValue(0.5)
 
 Window:SetBackground("6071575925")
 Window:SetBackgroundColor(Color3.fromRGB(124,7,7))
-
