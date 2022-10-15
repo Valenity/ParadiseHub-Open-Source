@@ -44,21 +44,12 @@ function notify(a,b)
         Description = b
     }
 end
-
-function Activate(acv)
-    plr = SharedUtility.GetPlayerTycoon(game.Players.LocalPlayer)
-    firetouchinterest(HumanoidRootPart,plr.Buttons[acv].Button,0)
-    wait(0.1)
-    firetouchinterest(HumanoidRootPart,plr.Buttons[acv].Button,1)
-end
-
-function Grab()
-    notify("Drops", "Grabbing Drops")
+-------------
+function GrabLoop()
     player.Character.HARVESTER.WeldConstraint:Destroy()
     for _, x in pairs(game:GetService("Workspace").Drops:GetChildren()) do
-        orbs = orbs + 1
         player.Character.HARVESTER.CFrame = x.CFrame
-        player.Character.HARVESTER.Size = Vector3.new(2,2,2)
+        player.Character.HARVESTER.Size = Vector3.new(0.5,0.5,0.5)
     end
     player.Character.HARVESTER.CFrame = HumanoidRootPart.CFrame
     local weld = Instance.new("WeldConstraint")
@@ -66,6 +57,30 @@ function Grab()
     weld.Part1 = player.Character.HARVESTER
     weld.Parent = player.Character.HARVESTER
     player.Character.HARVESTER.Size = Vector3.new(8,8,8)
+end
+-------------
+function Activate(acv)
+    plr = SharedUtility.GetPlayerTycoon(game.Players.LocalPlayer)
+    firetouchinterest(HumanoidRootPart,plr.Buttons[acv].Button,0)
+    wait(0.1)
+    firetouchinterest(HumanoidRootPart,plr.Buttons[acv].Button,1)
+end
+-------------
+function Grab()
+    notify("Drops", "Grabbing Drops")
+    player.Character.HARVESTER.WeldConstraint:Destroy()
+    for _, x in pairs(game:GetService("Workspace").Drops:GetChildren()) do
+        orbs = orbs + 1
+        player.Character.HARVESTER.CFrame = x.CFrame
+        player.Character.HARVESTER.Size = Vector3.new(4,4,4)
+        task.wait(0.001)
+    end
+    player.Character.HARVESTER.CFrame = HumanoidRootPart.CFrame
+    local weld = Instance.new("WeldConstraint")
+    weld.Part0 = HumanoidRootPart
+    weld.Part1 = player.Character.HARVESTER
+    weld.Parent = player.Character.HARVESTER
+    player.Character.HARVESTER.Size = Vector3.new(5,5,5)
     notify("Drops", "Grabbed ".. orbs .. " Drops")
     orbs = 0    
 end
