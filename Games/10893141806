@@ -1,0 +1,155 @@
+local Config = {
+    WindowName = "Paradise Hub v1",
+	Color = Color3.fromRGB(124,7,7),
+	Keybind = Enum.KeyCode.RightBracket
+}
+local player = game:GetService("Players").LocalPlayer
+------------
+function Notify()
+    local UI = player.PlayerGui.ScreenGui.Notifications.NotificationFrame:Clone()
+    UI.Parent = player.PlayerGui.ScreenGui.Notifications
+    UI.Visible = true
+    UI.TextLabel.Text = Config.WindowName
+    UI.TextLabel:WaitForChild("ColorFrame").BackgroundColor3 = Color3.fromRGB(124,7,7)
+    UI.TextLabel:WaitForChild("Icon").ImageColor3 = Color3.fromRGB(164,47,47)
+    wait(3)
+    UI:Destroy()
+end
+Notify()
+------------
+local Library = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-BracketV3-Edited-6518"))()
+if game:GetService("CoreGui"):FindFirstChild(Config.WindowName) ~= nil then
+    game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()
+end
+local plot = nil
+local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
+local player = game:GetService("Players").LocalPlayer
+local HumanoidRootPart = player.Character.HumanoidRootPart
+
+local Main = Window:CreateTab("Tycoon Menu")
+local Teleport = Window:CreateTab("Teleport Menu")
+local Tab2 = Window:CreateTab("UI Settings")
+
+local Farm = Main:CreateSection("Tycoon Options")
+local TP = Teleport:CreateSection("Players")
+
+local MenuSection = Tab2:CreateSection("Menu")
+local BackgroundSection = Tab2:CreateSection("Background")
+------------
+function GrabOwner()
+    for _, x in pairs(game:GetService("Workspace").Tycoon.Tycoons:GetChildren()) do
+        for _, v in pairs(x.TycoonInfo:GetChildren()) do
+            if v.Name == "Owner" then
+                if v.Value == player then
+                    print(v.Parent.Parent)
+                    plot = v.Parent.Parent
+                end
+            end
+        end
+    end
+end
+GrabOwner()
+------------
+function AutoFarm()
+    for _, x in pairs(plot.Buttons:GetChildren()) do
+        if x.Head.Transparency ~= 1 then
+            if x:FindFirstChild("Devproduct") ~= nil then
+                x:Destroy()
+            else
+                if x.Price.Value <= player.leaderstats.Money.Value then
+                    HumanoidRootPart.CFrame = x.Head.CFrame
+                end 
+            end
+        end
+    end    
+end
+------------
+function GrabCash()
+    firetouchinterest(plot.Essentials.DefaultCollector.Trigger,HumanoidRootPart,1)
+    task.wait(0.01)
+    firetouchinterest(plot.Essentials.DefaultCollector.Trigger,HumanoidRootPart,0)
+end
+------------
+local FarmToggle = Farm:CreateToggle("Autofarm Buttons",nil,function(s)
+    getgenv().farm = s
+end)
+------------
+local CashToggle = Farm:CreateToggle("Auto Collect Cash",nil,function(s)
+    getgenv().cash = s
+end)
+------------
+local Toggle3 = MenuSection:CreateToggle("UI Toggle", nil, function(State)
+	Window:Toggle(State)
+end)
+Toggle3:CreateKeybind(tostring(Config.Keybind):gsub("Enum.KeyCode.", ""), function(Key)
+	Config.Keybind = Enum.KeyCode[Key]
+end)
+Toggle3:SetState(true)
+
+local CloseUI = MenuSection:CreateButton("Destroy UI",function()
+    game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()    
+end)
+
+local Colorpicker3 = MenuSection:CreateColorpicker("UI Color", function(Color)
+	Window:ChangeColor(Color)
+end)
+Colorpicker3:UpdateColor(Config.Color)
+
+-- credits to jan for patterns
+local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
+	if Name == "Default" then
+		Window:SetBackground("2151741365")
+	elseif Name == "Hearts" then
+		Window:SetBackground("6073763717")
+	elseif Name == "Abstract" then
+		Window:SetBackground("6073743871")
+	elseif Name == "Hexagon" then
+		Window:SetBackground("6073628839")
+	elseif Name == "Circles" then
+		Window:SetBackground("6071579801")
+	elseif Name == "Lace With Flowers" then
+		Window:SetBackground("6071575925")
+	elseif Name == "Floral" then
+		Window:SetBackground("5553946656")
+	end
+end)
+Dropdown3:SetOption("Default")
+
+local Colorpicker4 = BackgroundSection:CreateColorpicker("Color", function(Color)
+	Window:SetBackgroundColor(Color)
+end)
+Colorpicker4:UpdateColor(Color3.new(1,1,1))
+
+local Slider3 = BackgroundSection:CreateSlider("Transparency",0,1,nil,false, function(Value)
+	Window:SetBackgroundTransparency(Value)
+end)
+Slider3:SetValue(0)
+
+local Slider4 = BackgroundSection:CreateSlider("Tile Scale",0,1,nil,false, function(Value)
+	Window:SetTileScale(Value)
+end)
+Slider4:SetValue(0.5)
+
+Window:SetBackground("6071575925")
+Window:SetBackgroundColor(Color3.fromRGB(124,7,7))
+
+for _, x in pairs(game:GetService("Players"):GetChildren()) do
+    if x.Name ~= player.Name then
+        local Button2 = TP:CreateButton("Teleport To:\n"..x.Name, function()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = x.Character.HumanoidRootPart.CFrame
+        end)
+    end
+end
+
+while true do
+    task.wait(0.01)
+    if getgenv().farm == true then
+        AutoFarm()
+    end
+    if getgenv().cash == true then
+        player.PlayerGui.ScreenGui.Notifications.Visible = false
+        GrabCash()
+    else
+        player.PlayerGui.ScreenGui.Notifications.Visible = true
+    end
+end
