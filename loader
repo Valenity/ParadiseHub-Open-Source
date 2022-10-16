@@ -14,7 +14,8 @@ local games = {
     ["Robowling"] = 340227283,
     ["Theme Park Tycoon 2"] = 69184822,
     ["Idle Heroes"] = 9264596435,
-    ["High School Life"] = 92604236
+    ["High School Life"] = 92604236,
+    ["Truck Factory Tycoon"] = 10893141806
 }
 
 notify("Initiating","Loading Paradise Hub!","255, 100, 100")
