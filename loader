@@ -13,7 +13,8 @@ local games = {
     ["Merge Simulator"] = 10925589760,
     ["Robowling"] = 340227283,
     ["Theme Park Tycoon 2"] = 69184822,
-    ["Idle Heroes"] = 9264596435
+    ["Idle Heroes"] = 9264596435,
+    ["High School Life"] = 92604236
 }
 
 notify("Initiating","Loading Paradise Hub!","255, 100, 100")
