@@ -36,6 +36,8 @@
 4. Robowling
    - Main Menu
      - Grab Coins
+   - Game Menu
+     - Instantly Start Game
    - Teleport Menu
      - Players
 5. Theme Park Tycoon 2
@@ -68,8 +70,19 @@
    - Lemonade Production
      - Harvest Trees
      - Make Lemonade
-     
-     
+9. Truck Factory Tycoon
+   - Tycoon Menu
+     - Auto Purchase Buttons
+     - Auto Collect Cash
+   - Teleport Menu
+     - Players
+10. High School Life
+   - Game Menu
+     - Change Team
+     - Change Persona (Name, Description)
+   - Teleport Menu
+     - Players
+
 
 # Common Questions
 > Why did you go from paid to free and open source?
