@@ -5,18 +5,20 @@ local Config = {
 }
 local player = game:GetService("Players").LocalPlayer
 local Library = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-BracketV3-Edited-6518"))()
-if game:GetService("CoreGui"):FindFirstChild("ParadiseHubv1") ~= nil then
-    game:GetService("CoreGui"):FindFirstChild("ParadiseHubv1"):Destroy()
+if game:GetService("CoreGui"):FindFirstChild(Config.WindowName) ~= nil then
+    game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()
 end
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 local player = game:GetService("Players").LocalPlayer
 local HumanoidRootPart = player.Character.HumanoidRootPart
 
 local Main = Window:CreateTab("Main Menu")
+local Game = Window:CreateTab("Game Menu")
 local Teleport = Window:CreateTab("Teleport Menu")
 local Tab2 = Window:CreateTab("UI Settings")
 
 local Coin = Main:CreateSection("Coins")
+local Start = Game:CreateSection("Came Creation")
 local TP = Teleport:CreateSection("Players")
 
 local MenuSection = Tab2:CreateSection("Menu")
@@ -30,6 +32,25 @@ local CoinClick = Coin:CreateButton("Grab Coins", function()
     end
 end)
 ------------
+local StartClick = Start:CreateButton("Start Single Game", function()
+    HumanoidRootPart.CFrame = game:GetService("Workspace").FunctionalAssets.Desk.Simoon68.Head.CFrame
+local dialog =  {
+	["Dialog"] = game:GetService("Workspace").FunctionalAssets.Desk.Simoon68.Head.Dialog
+}
+game:GetService("ReplicatedStorage").GetDialog:InvokeServer("ReplyDialog", dialog)
+
+local Party =  {
+	["Player"] = "robjetbot"
+}
+game:GetService("ReplicatedStorage").ServerRemote:InvokeServer("GetPartyMembers", Party)
+
+local index =  {
+	["Index"] = 2
+}
+game:GetService("ReplicatedStorage").GetDialog:InvokeServer("ReplyDialog", index)
+
+end)
+------------
 local Toggle3 = MenuSection:CreateToggle("UI Toggle", nil, function(State)
 	Window:Toggle(State)
 end)
@@ -39,7 +60,7 @@ end)
 Toggle3:SetState(true)
 
 local CloseUI = MenuSection:CreateButton("Destroy UI",function()
-    game:GetService("CoreGui"):FindFirstChild("ParadiseHubv1"):Destroy()    
+    game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()    
 end)
 
 local Colorpicker3 = MenuSection:CreateColorpicker("UI Color", function(Color)
