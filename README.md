@@ -5,12 +5,12 @@
 `loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/ParadiseHub-Open-Source/main/loader"))()`
 
 ## View our supported games and their features below!
-1. Halloween Night
+* Halloween Night
    - Trick-or-Treating
      - Knock on Random Door
      - Collect all Candy
      - Teleport to Sell Area
-2. Slime Tower Tycoon
+* Slime Tower Tycoon
    - Main Menu
      - Grab Orbs
      - Deposit Orbs
@@ -27,20 +27,20 @@
    - Misc Menu
      - Remove Ads
      - Remove In-App Purchases
-3. Idle Heroes
+* Idle Heroes
    - Attack Menu
      - Attack Current Enemy
    - Level Menu
      - Last Level
      - Next Level
-4. Robowling
+* Robowling
    - Main Menu
      - Grab Coins
    - Game Menu
      - Instantly Start Game
    - Teleport Menu
      - Players
-5. Theme Park Tycoon 2
+* Theme Park Tycoon 2
    - Main Menu
      - Clean Trash
      - Change Park Name
@@ -48,21 +48,21 @@
      - Players
    - Custom UI Settings
      - Show Default Cursor
-6. Merge Simulator
+* Merge Simulator
    - Main Menu
      - Merge Blocks
    - Teleport Menu
      - Players
    - Misc Menu
      - Give 2x Frenzy
-7. Racing Rocket
+* Racing Rocket
    - Speed Menu
      - Manipulate Clicks
    - Teleport Menu
      - Players
    - Misc Menu
      - Manipulate Reward Stars
-8. Lemonade Tycoon
+* Lemonade Tycoon
    - Remove Package
      - Remove Weird Group Package
    - Codes
@@ -70,13 +70,13 @@
    - Lemonade Production
      - Harvest Trees
      - Make Lemonade
-9. Truck Factory Tycoon
+* Truck Factory Tycoon
    - Tycoon Menu
      - Auto Purchase Buttons
      - Auto Collect Cash
    - Teleport Menu
      - Players
-10. High School Life
+* High School Life
    - Game Menu
      - Change Team
      - Change Persona (Name, Description)
