@@ -13,7 +13,6 @@ local player = game:GetService("Players").LocalPlayer
 local HumanoidRootPart = player.Character.HumanoidRootPart
 local name = nil
 local description = nil
-local Main = Window:CreateTab("Main Menu")
 local Game = Window:CreateTab("Game Menu")
 local Teleport = Window:CreateTab("Teleport Menu")
 local Tab2 = Window:CreateTab("UI Settings")
