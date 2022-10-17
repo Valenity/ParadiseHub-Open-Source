@@ -39,7 +39,7 @@ local CompleteObby = Ads:CreateSection("Obby Manipulation")
 local MenuSection = Settings:CreateSection("Menu")
 local BackgroundSection = Settings:CreateSection("Background")
 -------------
-for _, x in pairs(game:GetService("Players").robjetbot.PlayerGui.Chat.Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller:GetChildren()) do
+for _, x in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Chat.Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller:GetChildren()) do
     if x:IsA("Frame") then
         x:Destroy()    
     end
@@ -62,17 +62,19 @@ function notify(a,b)
 end
 -------------
 function SkipObby(int)
-    for _, x in pairs(game:GetService("Workspace").ObbyCheckpoints:GetChildren()) do
-    if x:IsA("Part") then
-        firetouchinterest(HumanoidRootPart,x,0)
-        task.wait(0.01)
-        firetouchinterest(HumanoidRootPart,x,1)
-    end
-end
-local bruh = "ObbyButton"..int
-firetouchinterest(HumanoidRootPart,game:GetService("Workspace")[bruh].Button,0)
-task.wait(0.01)
-firetouchinterest(HumanoidRootPart,game:GetService("Workspace")[bruh].Button,1)
+	for _, x in pairs(game:GetService("Workspace").ObbyCheckpoints:GetChildren()) do
+		if x:IsA("Part") then
+			firetouchinterest(HumanoidRootPart,x,0)
+			task.wait(0.02)
+			firetouchinterest(HumanoidRootPart,x,1)
+			task.wait(0.01)
+		end
+	end
+	task.wait(1)
+	local bruh = "ObbyButton"..int
+	firetouchinterest(HumanoidRootPart,game:GetService("Workspace")[bruh].Button,0)
+	task.wait(0.01)
+	firetouchinterest(HumanoidRootPart,game:GetService("Workspace")[bruh].Button,1)
 end
 -------------
 function Activate(acv)
@@ -86,7 +88,7 @@ function Grab()
     notify("Drops", "Grabbing Drops")
     player.Character.HARVESTER.WeldConstraint:Destroy()
     for _, x in pairs(game:GetService("Workspace").Drops:GetChildren()) do
-        orbs = orbs + 1
+        orbs += 1
         player.Character.HARVESTER.CFrame = x.CFrame
         player.Character.HARVESTER.Size = Vector3.new(4,4,4)
         task.wait(0.001)
