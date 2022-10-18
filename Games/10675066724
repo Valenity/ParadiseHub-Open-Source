@@ -93,12 +93,12 @@ function Grab()
         player.Character.HARVESTER.Size = Vector3.new(4,4,4)
         task.wait(0.001)
     end
-    player.Character.HARVESTER.CFrame = HumanoidRootPart.CFrame
+    player.Character.HARVESTER.CFrame = HumanoidRootPart.CFrame - Vector3.new(0,2,0)
     local weld = Instance.new("WeldConstraint")
     weld.Part0 = HumanoidRootPart
     weld.Part1 = player.Character.HARVESTER
     weld.Parent = player.Character.HARVESTER
-    player.Character.HARVESTER.Size = Vector3.new(5,5,5)
+    player.Character.HARVESTER.Size = Vector3.new(5,15,5)
     notify("Drops", "Grabbed ".. orbs .. " Drops")
     orbs = 0    
 end
@@ -224,7 +224,7 @@ end)
 Colorpicker3:UpdateColor(Config.Color)
 
 -- credits to jan for patterns
-local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
+local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral","xbGuard"}, function(Name)
 	if Name == "Default" then
 		Window:SetBackground("2151741365")
 	elseif Name == "Hearts" then
@@ -239,6 +239,8 @@ local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts",
 		Window:SetBackground("6071575925")
 	elseif Name == "Floral" then
 		Window:SetBackground("5553946656")
+	elseif Name == "xbGuard" then
+	    Window:SetBackground("11310622169")
 	end
 end)
 Dropdown3:SetOption("Default")
