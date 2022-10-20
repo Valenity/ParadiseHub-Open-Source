@@ -110,12 +110,12 @@ local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts",
 	    Window:SetBackground("11310622169")
 	end
 end)
-Dropdown3:SetOption("Default")
+Dropdown3:SetOption("Lace With Flowers")
 
 local Colorpicker4 = BackgroundSection:CreateColorpicker("Color", function(Color)
 	Window:SetBackgroundColor(Color)
 end)
-Colorpicker4:UpdateColor(Color3.new(1,1,1))
+Colorpicker4:UpdateColor(Color3.fromRGB(124,7,7))
 
 local Slider3 = BackgroundSection:CreateSlider("Transparency",0,1,nil,false, function(Value)
 	Window:SetBackgroundTransparency(Value)
@@ -126,9 +126,6 @@ local Slider4 = BackgroundSection:CreateSlider("Tile Scale",0,1,nil,false, funct
 	Window:SetTileScale(Value)
 end)
 Slider4:SetValue(0.5)
-
-Window:SetBackground("6071575925")
-Window:SetBackgroundColor(Color3.fromRGB(124,7,7))
 
 for _, x in pairs(game:GetService("Players"):GetChildren()) do
     if x.Name ~= player.Name then
