@@ -37,6 +37,8 @@ wait(1.5)
 for _, x in pairs(games) do
     if x == game.PlaceId then
         notify("Found!", "Playing: ".._,"75, 100, 200")
+        wait(1)
+        notify("Found!", "Game ID: "..x,"75, 100, 200")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/ParadiseHub-Open-Source/main/Games/"..x))()
     end
 end    
