@@ -6,8 +6,8 @@ local Config = {
 local notifications = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/Cheater.FunAreLeeches!"))()
 local player = game:GetService("Players").LocalPlayer
 local Library = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-BracketV3-Edited-6518"))()
-if game:GetService("CoreGui"):FindFirstChild("ParadiseHubv1") ~= nil then
-    game:GetService("CoreGui"):FindFirstChild("ParadiseHubv1"):Destroy()
+if game:GetService("CoreGui"):FindFirstChild(Config.WindowName) ~= nil then
+    game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()
 end
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
 local player = game:GetService("Players").LocalPlayer
@@ -24,10 +24,10 @@ local TP = Teleport:CreateSection("Players")
 local MenuSection = Tab2:CreateSection("Menu")
 local BackgroundSection = Tab2:CreateSection("Background")
 -------------
-function Clean()
+function Clean(plr)
     notify("Cleaning", "Cleaning Park")
     for _, x in pairs(game:GetService("Workspace").Tycoons:GetDescendants()) do
-        if x.Name == "OwnerName" and x.Value == tostring(game:GetService("Players").LocalPlayer) then
+        if x.Name == "OwnerName" and x.Value == tostring(plr) then
             local b = tostring(x.Parent)
             b = tonumber(b)
             game:GetService("ReplicatedStorage").Communication.SReplicateCleaningState:FireServer(b, true)
@@ -49,9 +49,17 @@ function notify(a,b)
     }
 end
 -------------
-local CoinClick = Janitor:CreateButton("Clean Park", function()
-    Clean()
+local CleanParkButton = Janitor:CreateButton("Clean Park", function()
+    
 end)
+
+for _, x in pairs(game:GetService("Players"):GetChildren()) do
+    if x.Name ~= player.Name then
+        local CleanParkButtonPlayers = Janitor:CreateButton("Clean "..x.Name.."'s Park", function()
+            Clean(x)
+        end)
+    end
+end
 ------------
 local EditClickName = Editing:CreateTextBox("Park Name","Park Name",false,function(Value)
     print(Value)
@@ -74,7 +82,7 @@ end)
 Toggle3:SetState(true)
 
 local CloseUI = MenuSection:CreateButton("Destroy UI",function()
-    game:GetService("CoreGui"):FindFirstChild("ParadiseHubv1"):Destroy()    
+    game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()    
 end)
 
 local Colorpicker3 = MenuSection:CreateColorpicker("UI Color", function(Color)
@@ -83,7 +91,7 @@ end)
 Colorpicker3:UpdateColor(Config.Color)
 
 -- credits to jan for patterns
-local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
+local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral","xbGuard"}, function(Name)
 	if Name == "Default" then
 		Window:SetBackground("2151741365")
 	elseif Name == "Hearts" then
@@ -98,6 +106,8 @@ local Dropdown3 = BackgroundSection:CreateDropdown("Image", {"Default","Hearts",
 		Window:SetBackground("6071575925")
 	elseif Name == "Floral" then
 		Window:SetBackground("5553946656")
+	elseif Name == "xbGuard" then
+	    Window:SetBackground("11310622169")
 	end
 end)
 Dropdown3:SetOption("Default")
