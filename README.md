@@ -2,7 +2,7 @@
 ### Paradise Hub is not your usual roblox script hub, our hub is completely free and open sourced for users to learn from! We strive to bring the best features and content! 
 
 ### Script:
-`loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/ParadiseHub-Open-Source/main/loader"))()`
+`loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/ParadiseHub-Open-Source/main/FuckCheater.Fun!"))()`
 
 ## View our supported games and their features below!
 * Halloween Night
