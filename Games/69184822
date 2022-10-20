@@ -1,5 +1,5 @@
 local Config = {
-    WindowName = "Paradise Hub v1",
+    WindowName = "Paradise Hub v1.1",
 	Color = Color3.fromRGB(124,7,7),
 	Keybind = Enum.KeyCode.RightBracket
 }
@@ -50,7 +50,7 @@ function notify(a,b)
 end
 -------------
 local CleanParkButton = Janitor:CreateButton("Clean Park", function()
-    
+    Clean(player)
 end)
 
 for _, x in pairs(game:GetService("Players"):GetChildren()) do
