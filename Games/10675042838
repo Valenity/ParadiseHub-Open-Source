@@ -8,7 +8,7 @@ if game:GetService("CoreGui"):FindFirstChild(Config.WindowName) ~= nil then
     game:GetService("CoreGui"):FindFirstChild(Config.WindowName):Destroy()
 end
 local Window = Library:CreateWindow(Config, game:GetService("CoreGui"))
-local notifications = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/notif"))()
+local notifications = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/Cheater.FunAreLeeches!"))()
 local player = game:GetService("Players").LocalPlayer
 local HumanoidRootPart = player.Character.HumanoidRootPart
 local Replicated = game:GetService("ReplicatedStorage")
