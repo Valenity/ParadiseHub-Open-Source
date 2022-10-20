@@ -1,4 +1,4 @@
-local notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/notif"))()
+local notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/Cheater.FunAreLeeches!"))()
 function notify(a,b,c)
     notif:message {
         Title = "Paradise Hub | <font color='rgb(".. c ..")'>"..a.."</font>",
