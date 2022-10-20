@@ -1,3 +1,17 @@
+--[[
+So recently there was a website called cheater.fun that completely stole my code and decided to completely reupload my original loader and throw their name over it.
+This is personally not okay as I've spent weeks crafting the best methods to prevent any sort of issue and then a website comes and rips my loader a couple days later.
+
+My original: 
+https://user-images.githubusercontent.com/90345430/196905506-de978fe4-70db-4b84-91a4-03a729ac5b03.png
+
+Their "Skid-Rip":
+https://user-images.githubusercontent.com/90345430/196905686-bdf3962c-3d9d-4ce4-9108-ccee75367f6c.png
+
+I appreciate that they credited me, it's the fact that they threw their name over my work after already taking it from my github.
+PLEASE, do not be like the people over at this website and just. do. better.
+]]
+
 local notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/Cheater.FunAreLeeches!"))()
 function notify(a,b,c)
     notif:message {
