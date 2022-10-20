@@ -13,10 +13,11 @@ PLEASE, do not be like the people over at this website and just. do. better.
 ]]
 
 local notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/Cheater.FunAreLeeches!"))()
-function notify(a,b,c)
+function notify(fuckyou,title,description,icon,color)
     notif:message {
-        Title = "Paradise Hub | <font color='rgb(".. c ..")'>"..a.."</font>",
-        Description = b
+        Title = fuckyou.." | <font color='rgb(".. color ..")'>"..title.."</font>",
+        Description = description,
+        Icon = icon
     }
 end
 local games = {
@@ -32,13 +33,13 @@ local games = {
     ["Truck Factory Tycoon"] = 10893141806
 }
 
-notify("Initiating","Loading Paradise Hub!","255, 100, 100")
+notify("Paradise Hub","Initiating","Loading Paradise Hub!",11310622169,"255, 100, 100")
 wait(1.5)
 for _, x in pairs(games) do
     if x == game.PlaceId then
-        notify("Found!", "Playing: ".._,"75, 100, 200")
+        notify("Paradise Hub","Found!","Playing: ".._,11310622169,"75, 100, 200")
         wait(1)
-        notify("Found!", "Game ID: "..x,"75, 100, 200")
+        notify("Paradise Hub","Found!","Game ID: "..x,11310622169,"75, 100, 200")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/ParadiseHub-Open-Source/main/Games/"..x))()
     end
-end    
+end
