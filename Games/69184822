@@ -26,6 +26,7 @@ local Library = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Sc
 local player = game:GetService("Players").LocalPlayer
 local HumanoidRootPart = player.Character.HumanoidRootPart
 local TrashPiles = 0
+local currentpos = nil
 
 ---------------------------------------
 
@@ -42,6 +43,7 @@ local Tab2 = Window:CreateTab("UI Settings")
 ---------------------------------------
 
 -- Create Sections
+local Spazz = Main:CreateSection("Spazz Features")
 local Janitor = Main:CreateSection("Cleaning")
 local Editing = Main:CreateSection("Park Info Editing")
 local TP = Teleport:CreateSection("Players")
@@ -76,6 +78,11 @@ function notify(a,b)
 end
 
 -- Script Start
+local CleanParkButton = Spazz:CreateToggle("Visual Lag",nil,function(t)
+    getgenv().aye = t
+    currentpos = HumanoidRootPart.CFrame
+end)
+------------
 local CleanParkButton = Janitor:CreateButton("Clean Park", function()
     Clean(player)
 end)
@@ -169,6 +176,14 @@ while true do
     else
         game:GetService("UserInputService").MouseIconEnabled = false
         cursortext:UpdateText("Cursor is: Hidden")
+    end
+    
+    if getgenv().aye == true then
+        HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + Vector3.new(math.random(1,3),math.random(-1,1),math.random(1,3))
+        task.wait(math.random(1,5))
+        HumanoidRootPart.CFrame = currentpos
+        task.wait(math.random(1,5))
+        currentpos = HumanoidRootPart.CFrame
     end
 end
 ------------
