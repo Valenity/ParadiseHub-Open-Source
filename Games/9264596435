@@ -3,7 +3,7 @@ local Config = {
 	Color = Color3.fromRGB(124,7,7),
 	Keybind = Enum.KeyCode.RightBracket
 }
-local notifications = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/notif"))()
+local notifications = loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/NotificationUI/main/Cheater.FunAreLeeches!"))()
 local player = game:GetService("Players").LocalPlayer
 local Library = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-BracketV3-Edited-6518"))()
 if game:GetService("CoreGui"):FindFirstChild("ParadiseHubv1") ~= nil then
