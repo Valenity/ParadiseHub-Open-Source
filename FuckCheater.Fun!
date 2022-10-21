@@ -42,6 +42,6 @@ for _, x in pairs(games) do
         notify("Paradise Hub","Found!","Game ID: "..x,11310622169,"75, 100, 200")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/ParadiseHub-Open-Source/main/Games/"..x))()
     else
-        notify("Paradise Hub","Not Found!","Not a Supported Game!","255, 75, 75")
+        notify("Paradise Hub","Not Found!","Not a Supported Game!",nil,"255, 75, 75")
     end
 end
