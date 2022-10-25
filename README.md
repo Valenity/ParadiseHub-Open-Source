@@ -82,7 +82,15 @@
      - Change Persona (Name, Description)
    - Teleport Menu
      - Players
-
+* Islands
+   - Main Menu
+     - Grab Island ID
+     - Visual Lag
+   - Farm Menu
+     - Harvest and Replant Crops (Almost all added)
+     - Stick to Zombie Cletus
+   - Teleport Menu
+     - Players
 
 # Common Questions
 > Why did you go from paid to free and open source?
