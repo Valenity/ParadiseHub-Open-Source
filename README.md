@@ -91,6 +91,18 @@
      - Stick to Zombie Cletus
    - Teleport Menu
      - Players
+   - Mining Menu
+     - Mine Coal (on Home Island)
+     - Mine Clay (on Home Island)
+     - Mine Iron (on Home Island)
+   - Totem Menu
+     - Collect Items From Coal Totem
+     - Collect Items From Clay Totem
+     - Collect Items From Iron Totem
+   - Mob Menu
+     - Stick to Zombie Cletus
+   - Teleport Menu
+     - Players
 
 # Common Questions
 > Why did you go from paid to free and open source?
