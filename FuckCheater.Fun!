@@ -31,7 +31,8 @@ local games = {
     ["Idle Heroes"] = 9264596435,
     ["High School Life"] = 92604236,
     ["Truck Factory Tycoon"] = 10893141806,
-    ["Islands"] = 4872321990
+    ["Islands"] = 4872321990,
+    ["Islands (Hub)"] = 5899156129
  }
 
 notify("Paradise Hub","Initiating","Loading Paradise Hub!",11310622169,"255, 100, 100")
@@ -39,8 +40,6 @@ wait(1.5)
 for _, x in pairs(games) do
     if x == game.PlaceId then
         notify("Paradise Hub","Found!","Playing: ".._,11310622169,"75, 100, 200")
-        wait(1)
-        notify("Paradise Hub","Found!","Game ID: "..x,11310622169,"75, 100, 200")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Valenity/ParadiseHub-Open-Source/main/Games/"..x))()
     end
 end
