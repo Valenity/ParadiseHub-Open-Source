@@ -468,15 +468,34 @@ Farming:CreateToggle({
 })
 ------------
 local Stick = Mobs:CreateSection("Sticky")
+Mobs:CreateButton({
+    Name = "Travel to Cletus", 
+    Callback = function()
+        if game:GetService("Workspace").WildernessIsland.Entities:FindFirstChild("cletusHalloween") ~= nil then
+                local Info = TweenInfo.new(25,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                local Tweens = {
+                    CFrame = game:GetService("Workspace").WildernessIsland.Entities.cletusHalloween.HumanoidRootPart.CFrame
+                }
+                local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                Tween:Play()
+        else
+            if game:GetService("Workspace").WildernessIsland.Entities:FindFirstChild("cletusHalloween") == nil then
+                if value ~= false then
+                    Library:Notify("Notice","You can't do this right now.")
+                end
+            end
+        end
+    end
+})
+
 Mobs:CreateToggle({
     Name = "Stick to Cletus", 
-    CurrentValue = false,
     Callback = function(value)
         if game:GetService("Workspace").WildernessIsland.Entities:FindFirstChild("cletusHalloween") ~= nil then
             getgenv().aye2 = value
             while getgenv().aye2 == true do
                 task.wait()
-                local Info = TweenInfo.new(25,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                local Info = TweenInfo.new(4,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
                 local Tweens = {
                     CFrame = game:GetService("Workspace").WildernessIsland.Entities.cletusHalloween.HumanoidRootPart.CFrame
                 }
@@ -492,6 +511,7 @@ Mobs:CreateToggle({
         end
     end
 })
+
 ------------
 local TP = Teleport:CreateSection("Players")
 for _, x in pairs(game:GetService("Players"):GetChildren()) do
