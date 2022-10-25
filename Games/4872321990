@@ -1,0 +1,512 @@
+---------- Paradise Hub v1.1 ----------
+
+-- Configuration
+local Config = {
+    Name = "Paradise Hub v1.2 (Experimental)"
+}
+
+---------------------------------------
+
+-- Loadstrings
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+---------------------------------------
+
+-- Variables
+local TweenService = game:GetService("TweenService")
+local _NetManaged = game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"].net.out["_NetManaged"]
+local player = game:GetService("Players").LocalPlayer
+local HumanoidRootPart = player.Character.HumanoidRootPart
+local islanduuid = nil
+
+---------------------------------------
+
+-- Create UI
+local Window = Library:CreateWindow(Config)
+
+---------------------------------------
+
+-- Add Tab
+local Main = Window:CreateTab("Main Menu")
+local Farming = Window:CreateTab("Farm Menu")
+local Mobs = Window:CreateTab("Mob Menu")
+local Teleport = Window:CreateTab("Teleport Menu")
+---------------------------------------
+-- Script Start
+---------------------------------------
+Main:CreateButton({
+    Name = "Grab Island ID", 
+    Callback = function()
+        for _, x in pairs(game:GetService("Workspace").Islands:GetChildren()) do
+            for _, v in pairs(x:GetChildren()) do
+                if v.Name == "Owners" then
+                    if v:FindFirstChild(player.UserId) ~= nil then
+                        islanduuid = v.Parent
+                        game:GetService("CoreGui").Rayfield.Main.Elements["Main Menu"].Label.Title.Text = "Island UUID: "..tostring(islanduuid)
+                        Library:Notify("Island UUID","Grabbed ID: "..tostring(islanduuid))
+                    end
+                end
+            end
+        end
+    end,
+})
+Main:CreateLabel("Island UUID: "..tostring(islanduuid))
+------------
+local Spazz = Main:CreateSection("Spazz Features")
+Main:CreateToggle({
+    Name = "Visual Lag", 
+    CurrentValue = false,
+    Callback = function(value)
+        getgenv().aye = value
+        currentpos = HumanoidRootPart.CFrame
+        while getgenv().aye == true do
+            task.wait(0.2)
+            HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + Vector3.new(math.random(1,3),math.random(-1,1),math.random(1,3))
+            task.wait(math.random(0,2))
+            HumanoidRootPart.CFrame = currentpos
+            task.wait(math.random(0,2))
+            currentpos = HumanoidRootPart.CFrame
+        end
+    end
+})
+------------
+local Harvest = Farming:CreateSection("Harvest Plants")
+Farming:CreateLabel("Note: These are not meant to be instant by any means, it uses TweenService to bypass the teleport anti-cheat.")
+Farming:CreateToggle({
+    Name = "Harvest and Plant Tomatoes", 
+    CurrentValue = false,
+    Callback = function(value)
+        if islanduuid ~= nil then
+            getgenv().tomato = value
+                while getgenv().tomato == true do
+                    task.wait()
+                    for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                        if x.Name == "tomato" then
+                            if x:FindFirstChild("stage-3") ~= nil then
+                                if x["stage-3"].Harvestable.Value == true then
+                                    local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                                    local Tweens = {
+                                        CFrame = x.CFrame
+                                    }
+                                    local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                                    Tween:Play()
+                                    local arg =  {
+                                        ["player"] = player,
+                                        ["model"] = x
+                                    }
+                                    _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                                    task.wait(0.1)
+                                    local ar =  {
+                                        ["upperBlock"] = false, 
+                                        ["cframe"] = x.CFrame, 
+                                        ["blockType"] = "tomato"
+                                    }
+                                    _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                                    task.wait(0.1)
+                                end
+                            end
+                        end
+                    end    
+                end
+            else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+Farming:CreateToggle({
+    Name = "Harvest and Plant Wheat", 
+    CurrentValue = false,
+    Callback = function(value)
+    if islanduuid ~= nil then
+        getgenv().wheat = value
+        while getgenv().wheat == true do
+            task.wait()
+            for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                if x.Name == "wheat" then
+                    if x:FindFirstChild("stage-3") ~= nil then
+                        if x["stage-3"].Harvestable.Value == true then
+                            local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                            local Tweens = {
+                                CFrame = x.CFrame
+                            }
+                            local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                            Tween:Play()
+                            local arg =  {
+                                ["player"] = player,
+                                ["model"] = x
+                            }
+                            _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                            task.wait(0.1)
+                            local ar =  {
+                                ["upperBlock"] = false, 
+                                ["cframe"] = x.CFrame, 
+                                ["blockType"] = "wheat"
+                            }
+                            _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+            end    
+            end
+        else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+Farming:CreateToggle({
+    Name = "Harvest and Plant Potatoes", 
+    CurrentValue = false,
+    Callback = function(value)
+    if islanduuid ~= nil then
+        getgenv().potato = value
+        while getgenv().potato == true do
+            task.wait()
+            for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                if x.Name == "potato" then
+                    if x:FindFirstChild("stage-3") ~= nil then
+                        if x["stage-3"].Harvestable.Value == true then
+                            local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                            local Tweens = {
+                                CFrame = x.CFrame
+                            }
+                            local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                            Tween:Play()
+                            local arg =  {
+                                ["player"] = player,
+                                ["model"] = x
+                            }
+                            _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                            task.wait(0.1)
+                            local ar =  {
+                                ["upperBlock"] = false, 
+                                ["cframe"] = x.CFrame, 
+                                ["blockType"] = "potato"
+                            }
+                            _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+            end    
+            end
+        else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+Farming:CreateToggle({
+    Name = "Harvest and Plant Carrots", 
+    CurrentValue = false,
+    Callback = function(value)
+    if islanduuid ~= nil then
+        getgenv().carrot = value
+        while getgenv().carrot == true do
+            task.wait()
+            for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                if x.Name == "carrot" then
+                    if x:FindFirstChild("stage-3") ~= nil then
+                        if x["stage-3"].Harvestable.Value == true then
+                            local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                            local Tweens = {
+                                CFrame = x.CFrame
+                            }
+                            local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                            Tween:Play()
+                            local arg =  {
+                                ["player"] = player,
+                                ["model"] = x
+                            }
+                            _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                            task.wait(0.1)
+                            local ar =  {
+                                ["upperBlock"] = false, 
+                                ["cframe"] = x.CFrame, 
+                                ["blockType"] = "carrot"
+                            }
+                            _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+            end    
+            end
+        else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+Farming:CreateToggle({
+    Name = "Harvest and Plant Spinach", 
+    CurrentValue = false,
+    Callback = function(value)
+    if islanduuid ~= nil then
+        getgenv().spinach = value
+        while getgenv().spinach == true do
+            task.wait()
+            for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                if x.Name == "spinach" then
+                    if x:FindFirstChild("stage-3") ~= nil then
+                        if x["stage-3"].Harvestable.Value == true then
+                            local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                            local Tweens = {
+                                CFrame = x.CFrame
+                            }
+                            local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                            Tween:Play()
+                            local arg =  {
+                                ["player"] = player,
+                                ["model"] = x
+                            }
+                            _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                            task.wait(0.1)
+                            local ar =  {
+                                ["upperBlock"] = false, 
+                                ["cframe"] = x.CFrame, 
+                                ["blockType"] = "spinach"
+                            }
+                            _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+            end    
+            end
+        else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+Farming:CreateToggle({
+    Name = "Harvest and Plant Radish", 
+    CurrentValue = false,
+    Callback = function(value)
+    if islanduuid ~= nil then
+        getgenv().radish = value
+        while getgenv().radish == true do
+            task.wait()
+            for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                if x.Name == "radish" then
+                    if x:FindFirstChild("stage-3") ~= nil then
+                        if x["stage-3"].Harvestable.Value == true then
+                            local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                            local Tweens = {
+                                CFrame = x.CFrame
+                            }
+                            local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                            Tween:Play()
+                            local arg =  {
+                                ["player"] = player,
+                                ["model"] = x
+                            }
+                            _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                            task.wait(0.1)
+                            local ar =  {
+                                ["upperBlock"] = false, 
+                                ["cframe"] = x.CFrame, 
+                                ["blockType"] = "radish"
+                            }
+                            _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+            end    
+            end
+        else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+Farming:CreateToggle({
+    Name = "Harvest and Plant Pumpkins", 
+    CurrentValue = false,
+    Callback = function(value)
+    if islanduuid ~= nil then
+        getgenv().pumpkin = value
+        while getgenv().pumpkin == true do
+            task.wait()
+            for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                if x.Name == "pumpkin" then
+                    if x:FindFirstChild("stage-3") ~= nil then
+                        if x["stage-3"].Harvestable.Value == true then
+                            local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                            local Tweens = {
+                                CFrame = x.CFrame
+                            }
+                            local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                            Tween:Play()
+                            local arg =  {
+                                ["player"] = player,
+                                ["model"] = x
+                            }
+                            _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                            task.wait(0.1)
+                            local ar =  {
+                                ["upperBlock"] = false, 
+                                ["cframe"] = x.CFrame, 
+                                ["blockType"] = "pumpkin"
+                            }
+                            _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+            end    
+            end
+        else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+Farming:CreateToggle({
+    Name = "Harvest and Plant Onions", 
+    CurrentValue = false,
+    Callback = function(value)
+    if islanduuid ~= nil then
+        getgenv().onion = value
+        while getgenv().onion == true do
+            task.wait()
+            for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                if x.Name == "onion" then
+                    if x:FindFirstChild("stage-3") ~= nil then
+                        if x["stage-3"].Harvestable.Value == true then
+                            local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                            local Tweens = {
+                                CFrame = x.CFrame
+                            }
+                            local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                            Tween:Play()
+                            local arg =  {
+                                ["player"] = player,
+                                ["model"] = x
+                            }
+                            _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                            task.wait(0.1)
+                            local ar =  {
+                                ["upperBlock"] = false, 
+                                ["cframe"] = x.CFrame, 
+                                ["blockType"] = "onion"
+                            }
+                            _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+            end    
+            end
+        else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+Farming:CreateToggle({
+    Name = "Harvest and Plant Watermelon", 
+    CurrentValue = false,
+    Callback = function(value)
+    if islanduuid ~= nil then
+        getgenv().watermelon = value
+        while getgenv().watermelon == true do
+            task.wait()
+            for _, x in pairs(islanduuid.Blocks:GetChildren()) do
+                if x.Name == "watermelon" then
+                    if x:FindFirstChild("stage-3") ~= nil then
+                        if x["stage-3"].Harvestable.Value == true then
+                            local Info = TweenInfo.new(0.9,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                            local Tweens = {
+                                CFrame = x.CFrame
+                            }
+                            local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                            Tween:Play()
+                            local arg =  {
+                                ["player"] = player,
+                                ["model"] = x
+                            }
+                            _NetManaged["CLIENT_HARVEST_CROP_REQUEST"]:InvokeServer(arg)
+                            task.wait(0.1)
+                            local ar =  {
+                                ["upperBlock"] = false, 
+                                ["cframe"] = x.CFrame, 
+                                ["blockType"] = "watermelon"
+                            }
+                            _NetManaged["CLIENT_BLOCK_PLACE_REQUEST"]:InvokeServer(ar)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+            end    
+            end
+        else
+            if value ~= false then
+                Library:Notify("Error!","Please Grab Island UUID!")
+            end
+        end
+    end
+})
+------------
+local Stick = Mobs:CreateSection("Sticky")
+Mobs:CreateToggle({
+    Name = "Stick to Cletus", 
+    CurrentValue = false,
+    Callback = function(value)
+        if game:GetService("Workspace").WildernessIsland.Entities:FindFirstChild("cletusHalloween") ~= nil then
+            getgenv().aye2 = value
+            while getgenv().aye2 == true do
+                task.wait()
+                local Info = TweenInfo.new(25,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                local Tweens = {
+                    CFrame = game:GetService("Workspace").WildernessIsland.Entities.cletusHalloween.HumanoidRootPart.CFrame
+                }
+                local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                Tween:Play()
+            end
+        else
+            if game:GetService("Workspace").WildernessIsland.Entities:FindFirstChild("cletusHalloween") == nil then
+                if value ~= false then
+                    Library:Notify("Notice","You can't do this right now.")
+                end
+            end
+        end
+    end
+})
+------------
+local TP = Teleport:CreateSection("Players")
+for _, x in pairs(game:GetService("Players"):GetChildren()) do
+    if x.Name ~= player.Name then
+        Teleport:CreateButton({
+            Name = "Teleport To: "..x.Name, Callback = function()
+                Library:Notify("Teleporting!","ETA: 15s")
+                local Info = TweenInfo.new(15,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+                local Tweens = {
+                    CFrame = x.Character.HumanoidRootPart.CFrame
+                }
+                local Tween = TweenService:Create(HumanoidRootPart,Info,Tweens)
+                Tween:Play()
+            end,
+        })
+    end
+end
+------------
