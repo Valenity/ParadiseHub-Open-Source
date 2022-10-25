@@ -1,0 +1,3 @@
+local plr = game:GetService("Players").LocalPlayer
+
+plr:Kick("Script Has Been Moved! Please join the discord @ https://valenity.world/discord")
