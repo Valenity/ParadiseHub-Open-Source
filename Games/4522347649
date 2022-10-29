@@ -1,0 +1,328 @@
+---------- Paradise Hub v1.2 ----------
+
+-- Configuration
+local Config = {
+    Name = "Paradise Hub v1.2 (Experimental)",
+    LoadingTitle = "Paradise Hub v1.2 ",
+	LoadingSubtitle = "Rayfield Edition"
+}
+
+---------------------------------------
+
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
+---------------------------------------
+
+-- Variables
+local TweenService = game:GetService("TweenService")
+local player = game:GetService("Players").LocalPlayer
+local HumanoidRootPart = player.Character.HumanoidRootPart
+---------------------------------------
+
+-- Create UI
+local Window = Library:CreateWindow(Config)
+
+---------------------------------------
+
+local Main = Window:CreateTab("Main Menu")
+local Protection = Window:CreateTab("Protection Menu")
+local Punish = Window:CreateTab("Punish Menu")
+local Visual = Window:CreateTab("Visual Menu")
+local Music = Window:CreateTab("Music Menu")
+local Teleport = Window:CreateTab("Teleport Menu")
+
+
+local TP = Teleport:CreateSection("Players")
+-------------
+function CommandProtect(command)
+    game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(":"..command) 
+end
+-------------
+function CommandSelf(command)
+    game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(":"..command.." me") 
+end
+-------------
+function CommandName(name)
+    for _, x in pairs(game:GetService("Players"):GetPlayers()) do
+        if x ~= player then
+            game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(":name "..x.Name.. " "..name) 
+        end
+    end
+end
+-------------
+function CommandTP(command)
+    for _, x in pairs(game:GetService("Players"):GetPlayers()) do
+        if x ~= player then
+            game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(": "..command.." "..x.Name.." me") 
+        end
+    end
+end
+-------------
+function CommandTP(command)
+    for _, x in pairs(game:GetService("Players"):GetPlayers()) do
+        if x ~= player then
+            game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(":"..command.." "..x.Name.. " me") 
+        end
+    end
+end
+-------------
+function CommandAll(command)
+    for _, x in pairs(game:GetService("Players"):GetPlayers()) do
+        if x ~= player then
+            game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(":"..command.." "..x.Name) 
+        end
+    end
+end
+-------------
+function CommandTalk(phrase)
+    for _, x in pairs(game:GetService("Players"):GetPlayers()) do
+        if x ~= player then
+            game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(":talk".." "..x.Name.." "..phrase)
+        end
+    end
+end
+-------------
+Main:CreateButton({
+    Name = "Godmode", 
+    Callback = function()
+        CommandSelf("god")
+    end,
+})
+
+Main:CreateButton({
+    Name = "Invisibility", 
+    Callback = function()
+        CommandSelf("invisible")
+    end,
+})
+
+Main:CreateButton({
+    Name = "Fly", 
+    Callback = function()
+        CommandSelf("fly")
+    end,
+})
+-------------
+Protection:CreateButton({
+    Name = "Unfreeze", 
+    Callback = function()
+        CommandProtect("thaw")
+    end,
+})
+
+Protection:CreateButton({
+    Name = "Uncontrol", 
+    Callback = function()
+        CommandProtect("uncontrol")
+    end,
+})
+
+Protection:CreateButton({
+    Name = "Unjail", 
+    Callback = function()
+        CommandProtect("unjail")
+    end,
+})
+-------------
+local selectedname = nil
+local InputName = Punish:CreateInput({
+	Name = "Spoofed Name",
+	PlaceholderText = "EX: 'Big, Juicy, Fat Balls.'",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+        selectedname = Text
+        Library:Notify("Name","Name Selected: "..selectedname)
+	end,
+})
+
+Punish:CreateButton({
+    Name = "Set Name", 
+    Callback = function()
+        CommandName(selectedname)
+    end,
+})
+
+local SelectedPhrase = nil
+local InputMessage = Punish:CreateInput({
+	Name = "Spoofed Phrase",
+	PlaceholderText = "EX: 'go fk yourself.'",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+        SelectedPhrase = Text
+        Library:Notify("Phrase","Phrase Selected: "..SelectedPhrase)
+	end,
+})
+
+Punish:CreateButton({
+    Name = "Spoof Phrase to All", 
+    Callback = function()
+        CommandTalk(SelectedPhrase)
+    end,
+})
+Punish:CreateLabel("Enjoy fucking with people!")
+Punish:CreateButton({
+    Name = "Poop All", 
+    Callback = function()
+        CommandAll("poop")
+    end,
+})
+
+Punish:CreateButton({
+    Name = "TP All", 
+    Callback = function()
+        CommandTP("teleport")
+    end,
+})
+
+Punish:CreateButton({
+    Name = "Boing All", 
+    Callback = function()
+        CommandTP("boing")
+    end,
+})
+
+Punish:CreateButton({
+    Name = "Explode All", 
+    Callback = function()
+        CommandTP("explode")
+    end,
+})
+
+Punish:CreateButton({
+    Name = "Freeze All", 
+    Callback = function()
+        CommandAll("freeze")
+    end,
+})
+
+Punish:CreateButton({
+    Name = "Unfreeze All", 
+    Callback = function()
+        CommandAll("thaw")
+    end,
+})
+
+Punish:CreateButton({
+    Name = "Jail All", 
+    Callback = function()
+        CommandAll("jail")
+    end,
+})
+
+Punish:CreateButton({
+    Name = "Unjail All", 
+    Callback = function()
+        CommandAll("unjail")
+    end,
+})
+------------
+Visual:CreateButton({
+    Name = "Visible All", 
+    Callback = function()
+        CommandAll("clear")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Giant All", 
+    Callback = function()
+        CommandAll("giant")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Dwarf All", 
+    Callback = function()
+        CommandAll("dwarf")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Neon All", 
+    Callback = function()
+        CommandAll("neon")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Shine All", 
+    Callback = function()
+        CommandAll("shine")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Gold All", 
+    Callback = function()
+        CommandAll("gold")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Ghost All", 
+    Callback = function()
+        CommandAll("ghost")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Jump All", 
+    Callback = function()
+        CommandAll("jump")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Sit All", 
+    Callback = function()
+        CommandAll("sit")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Big Head All", 
+    Callback = function()
+        CommandAll("bigHead")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Small Head All", 
+    Callback = function()
+        CommandAll("smallHead")
+    end,
+})
+
+Visual:CreateButton({
+    Name = "Warp All", 
+    Callback = function()
+        CommandAll("Warp")
+    end,
+})
+------------
+
+local players = {}
+local SelectedPlayer = nil
+
+for _, x in pairs(game:GetService("Players"):GetChildren()) do
+    if x.Name ~= player.Name then
+        table.insert(players,tostring(x))        
+    end
+end
+
+Teleport:CreateDropdown({
+	Name = "Teleport To:",
+	Options = players,
+	CurrentOption = "N/A",
+	Callback = function(Option)
+        SelectedPlayer = Option
+        print(Option)
+	end,
+})
+------------
+Teleport:CreateButton({
+    Name = "Teleport", 
+    Callback = function()
+        HumanoidRootPart.CFrame = SelectedPlayer.HumanoidRootPart.CFrame
+    end,
+})
