@@ -1,0 +1,67 @@
+---------- Paradise Hub v1.2 ----------
+
+-- Configuration
+local Config = {
+    Name = "Paradise Hub v1.2 (Experimental)",
+    LoadingTitle = "Paradise Hub v1.2 ",
+	LoadingSubtitle = "Rayfield Edition"
+}
+
+---------------------------------------
+
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
+---------------------------------------
+
+-- Variables
+local TweenService = game:GetService("TweenService")
+local player = game:GetService("Players").LocalPlayer
+---------------------------------------
+
+-- Create UI
+local Window = Library:CreateWindow(Config)
+
+---------------------------------------
+
+local Main = Window:CreateTab("Main Menu")
+local Teleport = Window:CreateTab("Teleport Menu")
+
+local TP = Teleport:CreateSection("Players")
+-------------
+local text = Main:CreateLabel("This instantly finds EVERY simpson!")
+
+Main:CreateButton({
+    Name = "Find Every Simpson", 
+    Callback = function()
+        for _, x in pairs(game:GetService("Workspace").Creatures:GetChildren()) do
+            game:GetService("ReplicatedStorage").Nametag:FireServer(x.Name)
+        end
+    end,
+})
+-------------
+
+local players = {}
+local SelectedPlayer = nil
+
+for _, x in pairs(game:GetService("Players"):GetChildren()) do
+    if x.Name ~= player.Name then
+        table.insert(players,tostring(x))        
+    end
+end
+
+Teleport:CreateDropdown({
+	Name = "Teleport To:",
+	Options = players,
+	CurrentOption = "N/A",
+	Callback = function(Option)
+        SelectedPlayer = Option
+        print(Option)
+	end,
+})
+------------
+Teleport:CreateButton({
+    Name = "Teleport", 
+    Callback = function()
+        HumanoidRootPart.CFrame = game:GetService("Players")[SelectedPlayer].Character.HumanoidRootPart.CFrame
+    end,
+})
