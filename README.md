@@ -103,6 +103,7 @@
      - Stick to Zombie Cletus
    - Teleport Menu
      - Players
+* And More!
 
 # Common Questions
 > Why did you go from paid to free and open source?
