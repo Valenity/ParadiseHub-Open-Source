@@ -127,6 +127,6 @@ Teleport:CreateDropdown({
 Teleport:CreateButton({
     Name = "Teleport", 
     Callback = function()
-        HumanoidRootPart.CFrame = SelectedPlayer.HumanoidRootPart.CFrame
+        HumanoidRootPart.CFrame = SelectedPlayer.Character.HumanoidRootPart.CFrame
     end,
 })
