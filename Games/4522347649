@@ -160,6 +160,7 @@ Punish:CreateButton({
     end,
 })
 Punish:CreateLabel("Enjoy fucking with people!")
+
 Punish:CreateButton({
     Name = "Poop All", 
     Callback = function()
@@ -168,16 +169,16 @@ Punish:CreateButton({
 })
 
 Punish:CreateButton({
-    Name = "TP All", 
+    Name = "Fling All", 
     Callback = function()
-        CommandTP("teleport")
+        CommandAll("fling")
     end,
 })
 
 Punish:CreateButton({
-    Name = "Boing All", 
+    Name = "TP All", 
     Callback = function()
-        CommandTP("boing")
+        CommandTP("teleport")
     end,
 })
 
@@ -216,6 +217,13 @@ Punish:CreateButton({
     end,
 })
 ------------
+Visual:CreateButton({
+    Name = "Boing All", 
+    Callback = function()
+        CommandTP("boing")
+    end,
+})
+
 Visual:CreateButton({
     Name = "Visible All", 
     Callback = function()
