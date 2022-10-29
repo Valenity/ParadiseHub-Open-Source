@@ -33,7 +33,8 @@ local games = {
     ["Truck Factory Tycoon"] = 10893141806,
     ["Islands"] = 4872321990,
     ["Islands (Hub)"] = 5899156129,
-    ["Find The Simpsons"] = 10726371567
+    ["Find The Simpsons"] = 10726371567,
+    ["[FREE ADMIN]"] = 4522347649
  }
 
 notify("Paradise Hub","Initiating","Loading Paradise Hub!",11310622169,"255, 100, 100")
