@@ -2,25 +2,76 @@
 
 -- Configuration
 local Config = {
-    Name = "Paradise Hub v1.2 (Experimental)"
+    Name = "Paradise Hub v1.2 (Experimental)",
+    LoadingTitle = "Paradise Hub v1.2 ",
+	LoadingSubtitle = "Rayfield Edition"
 }
 
 ---------------------------------------
+
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
 ---------------------------------------
+
 -- Variables
 local TweenService = game:GetService("TweenService")
 local player = game:GetService("Players").LocalPlayer
 local HumanoidRootPart = player.Character.HumanoidRootPart
+local selectedimage = 10679719925
+local selectedname = nil
 ---------------------------------------
+
 -- Create UI
 local Window = Library:CreateWindow(Config)
+
 ---------------------------------------
+
 local Main = Window:CreateTab("Main Menu")
+local Spoof = Window:CreateTab("Spoof Menu")
 local Game = Window:CreateTab("Game Menu")
 local Teleport = Window:CreateTab("Teleport Menu")
--------------
+
 local Coin = Main:CreateSection("Coins")
+local Start = Game:CreateSection("Came Creation")
+local TP = Teleport:CreateSection("Players")
+-------------
+local text = Spoof:CreateLabel("Level Spoofing (Server-Sided)")
+
+local InputName = Spoof:CreateInput({
+	Name = "Spoofed Level Name",
+	PlaceholderText = "EX: 'fuck this game'",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+        selectedname = Text
+        Library:Notify("Name","Selected: "..selectedname)
+	end,
+})
+
+local InputName = Spoof:CreateInput({
+	Name = "Spoofed Image ID",
+	PlaceholderText = "EX: '10679719925'",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+        selectedimage = Text
+        Library:Notify("Image","ID Selected: "..selectedimage)
+	end,
+})
+
+Spoof:CreateButton({
+    Name = "Spoof Image", 
+    Callback = function()
+        game:GetService("Workspace").Events.StatsGuiUpdateFunc:InvokeServer("Level", selectedimage, selectedname or "Paradise Hub")
+    end,
+})
+
+Spoof:CreateButton({
+    Name = "Spoof Name", 
+    Callback = function()
+        game:GetService("Workspace").Events.StatsGuiUpdateFunc:InvokeServer("Level", selectedimage or 10679719925, selectedname)
+    end,
+})
+
+-------------
 Main:CreateButton({
     Name = "Grab Coins", 
     Callback = function()
@@ -34,7 +85,6 @@ Main:CreateButton({
     end,
 })
 ------------
-local Start = Game:CreateSection("Came Creation")
 Game:CreateButton({
     Name = "Start Game (Single)", 
     Callback = function()
@@ -55,14 +105,28 @@ Game:CreateButton({
     end,
 })
 
-local TP = Teleport:CreateSection("Players")
+local players = {}
+local SelectedPlayer = nil
+
 for _, x in pairs(game:GetService("Players"):GetChildren()) do
     if x.Name ~= player.Name then
-        Teleport:CreateButton({
-            Name = "Teleport to "..x.Name, 
-            Callback = function()
-                HumanoidRootPart.CFrame = x.Character.HumanoidRootPart.CFrame
-            end,
-        })
+        table.insert(players,tostring(x))        
     end
 end
+
+Teleport:CreateDropdown({
+	Name = "Teleport To:",
+	Options = players,
+	CurrentOption = "N/A",
+	Callback = function(Option)
+        SelectedPlayer = Option
+        print(Option)
+	end,
+})
+------------
+Teleport:CreateButton({
+    Name = "Teleport", 
+    Callback = function()
+        HumanoidRootPart.CFrame = SelectedPlayer.HumanoidRootPart.CFrame
+    end,
+})
